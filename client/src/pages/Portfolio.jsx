@@ -295,11 +295,74 @@ function ProjectDetail({ project }) {
   );
 }
 
+function ProjectDetailModal({ project, onClose }) {
+  if (!project) return null;
+
+  const projectImages = project.images?.length
+    ? project.images
+    : [{ src: project.img, alt: project.alt }];
+
+  return (
+    <div className="project-modal-backdrop" onClick={onClose}>
+      <section
+        className="project-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-modal-title"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          className="project-modal-close"
+          type="button"
+          aria-label="Close project details"
+          onClick={onClose}
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h2 id="project-modal-title">{project.title}</h2>
+        <p className="project-modal-description">{project.description}</p>
+        <div
+          className={`project-gallery project-gallery--${
+            projectImages.length > 1 ? "multi" : "single"
+          }`}
+        >
+          {projectImages.map((image) => (
+            <a
+              className="project-image-link"
+              href={project.link}
+              target={project.link === "#" ? undefined : "_blank"}
+              rel={project.link === "#" ? undefined : "noopener noreferrer"}
+              aria-label={project.title}
+              key={image.src}
+            >
+              <img src={image.src} className="image" alt={image.alt} />
+            </a>
+          ))}
+        </div>
+        {project.link === "#" ? (
+          <span className="repository-button disabled">Repository Coming Soon</span>
+        ) : (
+          <a
+            className="repository-button"
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open Repository
+          </a>
+        )}
+      </section>
+    </div>
+  );
+}
+
 export default function Portfolio() {
   const [selectedCategoryKey, setSelectedCategoryKey] = useState(
     projectCategories[0].key
   );
   const [selectedProject, setSelectedProject] = useState(null);
+  const [modalProject, setModalProject] = useState(null);
+  const [isMobilePortfolio, setIsMobilePortfolio] = useState(false);
   const [projectScroll, setProjectScroll] = useState({ left: 0, width: 100 });
   const projectScrollRef = useRef(null);
   const projectScrollTrackRef = useRef(null);
@@ -374,6 +437,31 @@ export default function Portfolio() {
     return () => window.removeEventListener("resize", handleResize);
   }, [updateProjectScroll]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 600px)");
+    const updateMobileState = () => setIsMobilePortfolio(mediaQuery.matches);
+
+    updateMobileState();
+    mediaQuery.addEventListener("change", updateMobileState);
+    return () => mediaQuery.removeEventListener("change", updateMobileState);
+  }, []);
+
+  useEffect(() => {
+    if (!modalProject) return;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") setModalProject(null);
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [modalProject]);
+
+  const handleSelectProject = (project) => {
+    setSelectedProject(project);
+    if (isMobilePortfolio) setModalProject(project);
+  };
+
   const introText = (
     <p className="portfolioHeader">
       Projects branch into coding work and 3D/CAD work. Choose a project inside
@@ -404,7 +492,7 @@ export default function Portfolio() {
               selectedCategoryKey={selectedCategoryKey}
               selectedProject={selectedProject}
               onSelectCategory={setSelectedCategoryKey}
-              onSelectProject={setSelectedProject}
+              onSelectProject={handleSelectProject}
               introText={introText}
             />
           </ul>
@@ -434,6 +522,10 @@ export default function Portfolio() {
       </section>
 
       <ProjectDetail project={selectedProject} />
+      <ProjectDetailModal
+        project={modalProject}
+        onClose={() => setModalProject(null)}
+      />
     </div>
   );
 }

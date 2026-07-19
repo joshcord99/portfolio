@@ -272,7 +272,7 @@ export default function Resume() {
               onClick={() => setSelectedEvent(null)}
               aria-label="Close details"
             >
-              &times;
+              <span aria-hidden="true">&times;</span>
             </button>
 
             <p className="timeline-modal-date">

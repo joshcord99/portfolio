@@ -441,6 +441,75 @@
   cursor: default;
 }
 
+.project-modal-backdrop {
+  align-items: center;
+  background: var(--overlay-backdrop);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 18px;
+  position: fixed;
+  z-index: 3000;
+}
+
+.project-modal {
+  background: var(--card-bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  box-sizing: border-box;
+  color: var(--text-color);
+  max-height: 86vh;
+  overflow: auto;
+  padding: 22px;
+  position: relative;
+  width: min(100%, 720px);
+}
+
+.project-modal-close {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  font-size: 1.55rem;
+  height: 34px;
+  justify-content: center;
+  line-height: 0;
+  padding: 0;
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  width: 34px;
+}
+
+.project-modal-close span {
+  display: block;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.project-modal h2 {
+  color: var(--text-color);
+  font-size: clamp(1.35rem, 6vw, 2rem);
+  line-height: 1.15;
+  margin: 0 42px 10px 0;
+  overflow-wrap: anywhere;
+}
+
+.project-modal-description {
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0 0 16px;
+  overflow-wrap: anywhere;
+}
+
+.project-modal .project-gallery {
+  margin-bottom: 14px;
+}
+
 @media (max-width: 900px) {
   .project-tree-section {
     --tree-card-width: min(620px, calc(100vw - 48px));
@@ -502,6 +571,10 @@
 
   .portfolio-scrollbar {
     margin-top: 72px;
+  }
+
+  .project-detail {
+    display: none;
   }
 
   .project-tree-section {
