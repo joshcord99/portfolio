@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Nav from "./components/Navbar";
 import Footer from "./pages/Footer";
 import "./css/App.css";
-import ChatBotUI from "./components/chatbotui";
+// import ChatBotUI from "./components/chatbotui";
 import { ThemeProvider, ThemeContext } from "./theme/ThemeContext";
 import { useContext } from "react";
 
@@ -23,7 +23,7 @@ function AppContent() {
         </main>
         <Footer />
       </div>
-      <ChatBotUI />
+      {/* <ChatBotUI /> */}
     </div>
   );
 }

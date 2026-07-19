@@ -44,15 +44,16 @@
 
 .modal-content {
   background-color: var(--nav-bg);
-  border-radius: 10px 10px 10px 10px;
-  padding: 2px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 10px 6px;
+  box-shadow: var(--shadow-md);
   animation: slideInLeft 0.3s ease;
-  width: 144px;
+  width: 112px;
   margin: 0;
   margin-top: 0;
   margin-left: 5px;
-  height: 220px;
+  height: auto;
   pointer-events: auto;
   z-index: 1001;
   position: fixed;
@@ -89,22 +90,35 @@
 .nav-tabs {
   display: flex;
   flex-direction: column;
-  padding: 8px 8px;
+  gap: 12px;
+  padding: 6px;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
   border: none;
-  width: 125px;
+  width: 105px;
   height: auto;
   flex-shrink: 0;
   margin: 0;
   max-height: 400px;
   margin-top: 0;
-  margin-left: 20px;
+  margin-left: 0;
+}
+
+.nav-item {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 a.nav-link {
+  box-sizing: border-box;
   color: var(--nav-link);
+  display: block;
   font-weight: bold;
+  padding: 6px;
+  text-align: center;
   text-decoration: none;
+  width: 100%;
 }
 
 a.nav-link.active {
@@ -113,26 +127,14 @@ a.nav-link.active {
   font-weight: bold;
   text-decoration: none;
   border-radius: 6px;
-  border: 2px solid black;
-  padding: 4px 8px;
-  box-shadow: 0 0 8px white;
-}
-a.nav-link:hover {
-  color: lightblue;
+  border: 2px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
 }
 
-.dark-mode a.nav-link.active {
-  color: #fff !important;
-  background-color: orange !important;
-  border: 2px solid #fff;
-  box-shadow: 0 0 8px #7cfc98;
+a.nav-link:hover {
+  color: var(--accent);
 }
-.light-mode a.nav-link.active {
-  color: #fff !important;
-  background-color: lightblue !important;
-  border: 2px solid black;
-  box-shadow: 0 0 8px white;
-}
+
 .theme-toggle-btn {
   transition: filter 0.2s;
 }

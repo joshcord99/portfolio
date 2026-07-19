@@ -1,212 +1,589 @@
 .portfolioHead {
-  text-decoration: underline;
   color: var(--text-color);
-  font-size: clamp(1.5rem, 5vw, 2.2rem);
-  font-weight: bold;
-  text-align: center;
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: 0;
   margin-bottom: 10px;
-  word-break: break-word;
+  text-align: center;
 }
 
 .portfolioHeader {
-  color: var(--text-color);
-  font-size: clamp(1.1rem, 4vw, 1.6rem);
-  font-weight: 350;
+  color: var(--text-secondary);
+  font-size: clamp(1rem, 2vw, 1.18rem);
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0 auto 24px;
+  max-width: 760px;
   text-align: center;
-  margin-bottom: 30px;
-  word-break: break-word;
 }
-
 
 .main-container.page {
-  padding: clamp(1rem, 5vw, 2rem) 1rem;
-  width: 100%;
+  background-color: var(--bg-color);
   min-height: 100vh;
-  background-color: var(--bg-color);
+  padding: clamp(1rem, 4vw, 2rem) clamp(1rem, 3vw, 2.5rem);
+  width: 100%;
 }
 
-
-.carousel-container {
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
-  position: relative;
+.portfolio-page {
   box-sizing: border-box;
 }
 
-.swiper {
-  padding: 0 1rem;
-  background-color: transparent;
+.project-tree-section {
+  --tree-card-width: clamp(600px, 48vw, 820px);
+  --tree-level-gap: 76px;
+  --tree-line-size: 2px;
+  --tree-line-color: color-mix(in srgb, var(--accent) 45%, var(--text-color));
+  margin: 0 auto 48px;
+  max-width: 100%;
+  width: 100%;
 }
 
-.card {
-  text-align: center;
-  padding: 2vw;
-  background-color: var(--bg-color);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
+.project-tree-scroll {
+  overflow-x: auto;
+  padding: 16px 0 0;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.project-tree-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.portfolio-scrollbar {
+  background: var(--border-subtle);
+  border-radius: 999px;
+  cursor: grab;
+  display: none;
+  height: 12px;
+  margin: 96px auto 0;
+  max-width: min(920px, calc(100% - 40px));
   overflow: hidden;
-  margin-bottom: 1.5rem;
+  position: relative;
   width: 100%;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
+}
+
+.portfolio-scrollbar:active {
+  cursor: grabbing;
+}
+
+.portfolio-scrollbar:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.portfolio-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 999px;
+  bottom: 0;
+  min-width: 42px;
+  position: absolute;
+  top: 0;
+}
+
+.project-tree,
+.tree-children {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.project-tree {
+  min-width: max-content;
+  padding: 0 12px;
+}
+
+.tree-branch {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  list-style: none;
+  min-width: 190px;
+  position: relative;
+}
+
+.tree-subtree {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-width: max-content;
+  width: max-content;
+}
+
+.tree-line-down {
+  display: none;
+  background: var(--tree-line-color);
+  flex-shrink: 0;
+  height: calc(var(--tree-level-gap) * 0.5);
+  width: var(--tree-line-size);
+  z-index: 2;
+}
+
+.tree-children {
+  display: flex;
+  gap: clamp(40px, 5vw, 80px);
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: max-content;
+}
+
+.tree-children > .tree-branch {
+  padding-top: calc(var(--tree-level-gap) * 0.5);
+  position: relative;
+}
+
+.tree-children > .tree-branch::before {
+  background: var(--tree-line-color);
+  content: "";
+  display: none;
+  height: calc((var(--tree-level-gap) * 0.5) - var(--tree-line-size));
+  left: 50%;
+  position: absolute;
+  top: var(--tree-line-size);
+  transform: translateX(-50%);
+  width: var(--tree-line-size);
+  z-index: 0;
+}
+
+.tree-children--multi::before {
+  background: var(--tree-line-color);
+  content: "";
+  display: none;
+  height: var(--tree-line-size);
+  left: calc(var(--tree-card-width) * 0.5);
+  position: absolute;
+  top: 0;
+  width: calc(100% - var(--tree-card-width));
+  z-index: 0;
+}
+
+.tree-children--single::before {
+  display: none;
+}
+
+.tree-children--single > .tree-branch::before {
+  height: calc(var(--tree-level-gap) * 0.5);
+  top: 0;
+}
+
+.tree-node {
+  align-items: center;
+  background: color-mix(in srgb, var(--card-bg) 96%, var(--accent));
+  border: 2px solid var(--border-subtle);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
   box-sizing: border-box;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  max-width: 220px;
+  min-height: 96px;
+  min-width: 170px;
+  padding: 12px 14px;
+  text-align: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  width: 100%;
+  z-index: 1;
+}
+
+.tree-node.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+.tree-node-root {
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0 0 10px;
+  min-height: auto;
+  min-width: auto;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.tree-branch-root .portfolioHeader {
+  margin-bottom: 28px;
+}
+
+.tree-branch-root {
+  width: 100%;
+}
+
+.tree-node-category {
+  background: color-mix(in srgb, var(--card-bg) 90%, var(--accent));
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  min-width: 170px;
+}
+
+.tree-node-tag {
+  color: var(--accent-secondary);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tree-node-title {
+  color: var(--text-color);
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.tree-card-node {
+  background: color-mix(in srgb, var(--card-bg) 92%, var(--accent-secondary));
+  border: 2px solid color-mix(in srgb, var(--accent-secondary) 42%, transparent);
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 12px;
+  width: var(--tree-card-width);
+  z-index: 1;
+}
+
+.tree-card-node.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent),
+    var(--shadow-md);
+}
+
+.tree-project-list {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-auto-rows: minmax(116px, auto);
+  flex: 1;
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 2px 4px 6px;
+  scrollbar-color: var(--accent) var(--border-subtle);
+  scrollbar-width: thin;
+}
+
+.tree-project-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.tree-project-list::-webkit-scrollbar-track {
+  background: var(--border-subtle);
+  border-radius: 999px;
+}
+
+.tree-project-list::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.tree-project-item {
+  align-items: center;
+  background: color-mix(in srgb, var(--card-bg) 96%, var(--accent));
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  cursor: pointer;
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr;
+  min-height: 116px;
+  padding: 14px;
+  text-align: left;
+  width: 100%;
+}
+
+.tree-project-item:hover,
+.tree-project-item:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: var(--shadow-sm);
+  outline: none;
+}
+
+.tree-project-item.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+.tree-project-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.tree-project-item strong {
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.tree-project-item span {
+  color: var(--text-secondary);
+  display: -webkit-box;
+  font-size: 0.86rem;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  line-height: 1.35;
+  overflow: hidden;
+}
+
+.project-detail {
+  background: color-mix(in srgb, var(--card-bg) 96%, var(--accent));
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  box-shadow: var(--shadow-md);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 720px;
+  min-height: 280px;
+  padding: 18px;
+  width: 100%;
+}
+
+.project-detail-empty {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.project-detail-empty p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.project-gallery {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.project-gallery--multi {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.project-detail .project-image-link,
+.project-card .project-image-link {
+  align-items: center;
+  background: color-mix(in srgb, var(--bg-color) 92%, var(--accent));
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  min-height: clamp(180px, 28vw, 260px);
+  width: 100%;
 }
 
 .image {
-  width: 100%;
-  max-width: 350px;
-  height: auto !important;
-  max-height: 40vw;
-  object-fit: contain;
   border-radius: 8px;
   display: block;
-  margin: auto;
+  height: clamp(160px, 24vw, 240px);
+  max-width: 100%;
+  object-fit: contain;
+  width: 100%;
 }
 
-.card a {
-  display: block;
-  width: 100%;
-  max-width: 350px;
-  margin: auto;
+.project-gallery--multi .image {
+  height: clamp(220px, 32vw, 340px);
 }
 
 .portfolioText {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  font-weight: 600;
-  margin-top: 10px;
   color: var(--text-color);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 16px 0 8px;
 }
 
 .portfolioDescription {
-  font-size: clamp(0.875rem, 1.8vw, 1rem);
-  color: var(--nav-link);
-  max-width: 280px;
-  margin: 8px auto 0;
-  line-height: 1.4;
-  text-align: center;
-  word-break: break-word;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  overflow-wrap: anywhere;
 }
 
-.swiper-button-prev,
-.swiper-button-next {
-  color: var(--text-color);
-  transition: color 0.3s ease;
+.repository-button {
+  align-self: flex-start;
+  background: transparent;
+  border: 0;
+  color: var(--accent);
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin-top: auto;
+  padding-top: 6px;
+  text-decoration: none;
 }
 
-.swiper-button-disabled {
-  color: #ccc !important;
-  opacity: 1 !important;
-  pointer-events: none !important;
+.repository-button:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
 }
 
-.carousel-nav-mobile {
-  display: none;
-  margin-top: 1.5rem !important;
+.repository-button.disabled {
+  background: transparent;
+  color: var(--text-muted);
+  cursor: default;
 }
 
 @media (max-width: 900px) {
-  .carousel-container,
-  .swiper,
-  .swiper-wrapper,
-  .swiper-slide,
-  .card,
-  .card a,
-  .image {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 0 !important;
-    box-sizing: border-box;
+  .project-tree-section {
+    --tree-card-width: min(620px, calc(100vw - 48px));
   }
 
-  .image {
-    height: auto !important;
-    max-height: 50vw;
-  }
-}
-
-@media (max-width: 800px) {
-  .swiper-button-prev {
-    left: -20px;
+  .project-tree,
+  .tree-subtree,
+  .tree-children {
+    min-width: 0;
+    width: 100%;
   }
 
-  .swiper-button-next {
-    right: -20px;
+  .project-tree {
+    padding: 0;
+  }
+
+  .tree-children--multi {
+    align-items: center;
+    flex-direction: column;
+    gap: var(--tree-level-gap);
+  }
+
+  .tree-children--multi::before {
+    display: none;
+  }
+
+  .tree-node {
+    max-width: 180px;
+    min-width: 120px;
   }
 }
 
 @media (max-width: 600px) {
+  .portfolio-page {
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
   .portfolioHead,
   .portfolioHeader,
   .portfolioText,
-  .portfolioDescription,
-  .slide-counter {
-    font-size: 1em !important;
-    padding: 0.2em 0.4em !important;
-    margin: 0.2em 0 !important;
+  .portfolioDescription {
+    max-width: 100%;
+    overflow-wrap: anywhere;
     text-align: center;
   }
 
-  .card,
-  .card a {
-    padding: 4px !important;
+  .project-tree-scroll {
+    max-width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 0;
   }
 
-  .portfolioDescription {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    display: block !important;
+  .portfolio-scrollbar {
+    margin-top: 72px;
   }
 
-  .carousel-nav-mobile {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    position: relative !important;
-    z-index: 1 !important;
+  .project-tree-section {
+    --tree-card-width: calc(100vw - 32px);
+    --tree-level-gap: 36px;
+    margin-bottom: 36px;
+    max-width: 100%;
+    overflow: hidden;
   }
 
-  .carousel-nav-desktop {
-    display: none !important;
+  .project-tree {
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
   }
 
-  .carousel-nav-mobile .swiper-button-prev,
-  .carousel-nav-mobile .swiper-button-next {
-    position: relative !important;
-    margin: 0 10px !important;
-    display: inline-flex !important;
-    top: unset !important;
-    left: unset !important;
-    right: unset !important;
-    transform: none !important;
-    font-size: 1.2rem !important;
-    background: none !important;
-    border: 1px solid var(--text-color) !important;
-    border-radius: 4px !important;
-    color: var(--text-color) !important;
-    padding: 6px 18px !important;
-    min-width: 60px;
-    box-shadow: none !important;
-    font-weight: 600;
-    line-height: 1.2;
-    text-align: center !important;
-    justify-content: center;
-    align-items: center;
+  .tree-subtree {
+    min-width: 0;
+    width: 100%;
   }
 
-  .carousel-nav-mobile .swiper-button-prev::after,
-  .carousel-nav-mobile .swiper-button-next::after {
-    display: none !important;
-    content: none !important;
+  .tree-children {
+    gap: 36px;
+  }
+
+  .tree-branch {
+    box-sizing: border-box;
+    min-width: 120px;
+    width: 100%;
+  }
+
+  .tree-branch-root {
+    width: 100%;
+  }
+
+  .tree-node {
+    min-height: 76px;
+    padding: 10px;
+    width: min(100%, 280px);
+  }
+
+  .tree-node-title {
+    font-size: 0.78rem;
+  }
+
+  .tree-card-node {
+    max-width: calc(100vw - 32px);
+    overflow: hidden;
+    width: var(--tree-card-width);
+  }
+
+  .tree-project-list {
+    grid-template-columns: 1fr;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .tree-project-item {
+    min-width: 0;
+    overflow: hidden;
+    padding: 14px 16px;
+  }
+
+  .tree-project-item strong,
+  .tree-project-item span {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .tree-project-item span {
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: initial;
+    line-clamp: unset;
+    overflow: visible;
+  }
+
+  .repository-button {
+    align-self: center;
   }
 }
 
-.slide-counter {
-  color: var(--text-color);
-  text-align: center;
-  font-weight: 500;
-  margin-bottom: 10px;
+@media (prefers-reduced-motion: reduce) {
+  .tree-project-item:hover,
+  .tree-project-item:focus-visible {
+    transform: none;
+  }
 }

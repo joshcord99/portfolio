@@ -21,7 +21,7 @@ function Navbar() {
 
   useEffect(() => {
     if (isMobile) setIsOpen(false);
-  }, [currentPage]);
+  }, [currentPage, isMobile]);
 
   const handleMouseEnter = useCallback(() => {
     if (!isMobile) setIsHovered(true);
@@ -103,16 +103,6 @@ function Navbar() {
                   }
                 >
                   Portfolio
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to="/contact"
-                  className={
-                    currentPage === "/contact" ? "nav-link active" : "nav-link"
-                  }
-                >
-                  Contact
                 </Link>
               </li>
               <li className="nav-item" style={{ textAlign: "center" }}>

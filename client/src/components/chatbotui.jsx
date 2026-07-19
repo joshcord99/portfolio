@@ -1,4 +1,11 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+  useMemo,
+  useCallback,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { marked } from "marked";
 import resumeData from "../data/resumeData";
@@ -55,11 +62,6 @@ const ChatBotUI = () => {
     )
       return "/portfolio";
     if (
-      /contact|email|reach/.test(lower) &&
-      /(show|see|want|view|open)/.test(lower)
-    )
-      return "/contact";
-    if (
       /about|bio|background|him|her|profile/.test(lower) &&
       /(show|see|want|view|open)/.test(lower)
     )
@@ -73,9 +75,10 @@ const ChatBotUI = () => {
     );
   };
 
-  const systemPrompt = {
-    role: "system",
-    content: `
+  const systemPrompt = useMemo(
+    () => ({
+      role: "system",
+      content: `
 You are a helpful AI assistant for Joshua Cordial's personal website. You can answer questions, guide users, and help navigate between pages.
 You have access to Joshua's resume, which is provided below. Use this information to answer any questions about Joshua's experience, skills, or background.
 
@@ -93,7 +96,7 @@ The website includes:
 - [NAVIGATE:/] → About Joshua
 - [NAVIGATE:/resume] → Resume page
 - [NAVIGATE:/portfolio] → Project showcase
-- [NAVIGATE:/contact] → Contact page
+- Contact links are available in the footer on every page
 
 Special instructions for common user questions:
 1. If the user asks about Joshua specifically (e.g., "Tell me about Joshua"), respond with:
@@ -106,8 +109,9 @@ Special instructions for common user questions:
    - [NAVIGATE:/portfolio] (to Portfolio page) (prioritize this first)
    - A list of project titles and a short description for each, based on the resume.
 4. If the user asks how to contact Joshua or for his contact info, respond with:
-   - [NAVIGATE:/contact] (to Contact page) (prioritize this first)
-   - Joshua's contact information (email, phone, LinkedIn, etc.) from the resume.
+   - Tell them contact links are in the footer on every page.
+   - Include Joshua's email: joshcord99@gmail.com.
+   - Include LinkedIn: https://www.linkedin.com/in/joshua-cordial-0aa18a3a0/.
 
 If a user asks to go to a specific page, respond ONLY with the appropriate [NAVIGATE:/path] tag and nothing else, unless it matches one of the above cases.
 
@@ -117,13 +121,15 @@ Assistant: [NAVIGATE:/resume]
 
 Never make up information that's not on Joshua's site. If the requested info isn't available, explain that respectfully. Do not assume anything. Only answer based on what you've received or know from the site.
 `,
-  };
+    }),
+    []
+  );
 
-  const getLastUserMessage = () => {
+  const getLastUserMessage = useCallback(() => {
     return (
       [...messages].reverse().find((m) => m.role === "user")?.content || ""
     );
-  };
+  }, [messages]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -151,8 +157,8 @@ Never make up information that's not on Joshua's site. If the requested info isn
         suggestPath = "/portfolio";
         suggestPageName = "portfolio";
       } else if (/contact|email|reach/.test(summary.toLowerCase())) {
-        suggestPath = "/contact";
-        suggestPageName = "contact";
+        suggestPath = "/";
+        suggestPageName = "about";
       }
       if (summary) {
         setMessages((prev) => [
@@ -217,7 +223,7 @@ Never make up information that's not on Joshua's site. If the requested info isn
           ]);
         });
     }
-  }, [messages, navigate]);
+  }, [messages, navigate, getLastUserMessage, systemPrompt]);
 
   const sendMessage = async (e) => {
     e.preventDefault();

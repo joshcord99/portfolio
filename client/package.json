@@ -7,7 +7,7 @@
     "dev": "vite",
     "start": "vite",
     "build": "vite build",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0 --resolve-plugins-relative-to .",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -15,7 +15,8 @@
     "marked": "^16.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.11.1",
+    "swiper": "^14.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
