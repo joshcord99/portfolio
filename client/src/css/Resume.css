@@ -612,6 +612,10 @@
     margin: 0.2em 0 !important;
   }
 
+  .resumeHead {
+    font-size: clamp(0.9rem, 4vw, 1.05rem) !important;
+  }
+
   .resume-page {
     overflow-x: hidden;
     padding: 20px 14px !important;
@@ -627,6 +631,7 @@
   }
 
   .career-timeline-heading {
+    font-size: clamp(0.9rem, 4vw, 1.05rem) !important;
     margin-top: 24px;
   }
 
