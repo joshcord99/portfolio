@@ -106,6 +106,10 @@ const threeDProjects = [
         src: "/projects/motorcycle-speaker-angle.jpg",
         alt: "Finished custom motorcycle speaker enclosure viewed from an angle",
       },
+      {
+        src: "/projects/motorcycle-speaker-cad-sketch.jpeg",
+        alt: "Fusion CAD sketch layout for the custom motorcycle speaker enclosure",
+      },
     ],
   },
 ];
