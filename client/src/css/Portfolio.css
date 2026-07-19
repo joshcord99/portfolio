@@ -113,8 +113,8 @@
 }
 
 .tree-line-down {
-  display: none;
   background: var(--tree-line-color);
+  display: block;
   flex-shrink: 0;
   height: calc(var(--tree-level-gap) * 0.5);
   width: var(--tree-line-size);
@@ -140,7 +140,7 @@
 .tree-children > .tree-branch::before {
   background: var(--tree-line-color);
   content: "";
-  display: none;
+  display: block;
   height: calc((var(--tree-level-gap) * 0.5) - var(--tree-line-size));
   left: 50%;
   position: absolute;
@@ -153,7 +153,7 @@
 .tree-children--multi::before {
   background: var(--tree-line-color);
   content: "";
-  display: none;
+  display: block;
   height: var(--tree-line-size);
   left: calc(var(--tree-card-width) * 0.5);
   position: absolute;
@@ -598,6 +598,12 @@
 
   .tree-children {
     gap: 36px;
+  }
+
+  .tree-line-down,
+  .tree-children > .tree-branch::before,
+  .tree-children--multi::before {
+    display: none;
   }
 
   .tree-branch {
