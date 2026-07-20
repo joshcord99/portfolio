@@ -3,12 +3,51 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const codingProjects = [
   {
+    link: "https://github.com/joshcord99/zoomies",
+    img: "/projects/zoomies/game-play.png",
+    alt: "ZOOMIES watchOS endless runner gameplay",
+    title: "ZOOMIES",
+    description:
+      "Apple Watch endless runner built with Swift and SwiftUI, featuring generated character sprites, map selection, obstacles, coins, lives, settings, and persistent scores.",
+    languagesUsed: ["Swift", "SwiftUI", "watchOS"],
+    skillsLearned: [
+      "Digital Crown input tuning",
+      "Watch-size gameplay pacing",
+      "Obstacle spacing systems",
+    ],
+    images: [
+      {
+        src: "/projects/zoomies/home.png",
+        alt: "ZOOMIES Apple Watch home screen",
+      },
+      {
+        src: "/projects/zoomies/characters.png",
+        alt: "ZOOMIES character selection screen",
+      },
+      {
+        src: "/projects/zoomies/map-menu.png",
+        alt: "ZOOMIES map selection screen",
+      },
+      {
+        src: "/projects/zoomies/game-play.png",
+        alt: "ZOOMIES Apple Watch endless runner gameplay",
+      },
+    ],
+  },
+  {
     link: "https://github.com/joshcord99/stoxai",
     img: "/projects/stoxai.png",
     alt: "Market Analysis",
     title: "StoxAI - Stock Market Analysis",
     description:
       "A stock market analysis tool that uses the algorythms to analyze stock market data and provide insights.",
+    languagesUsed: ["Python", "JavaScript", "CSS"],
+    skillsLearned: [
+      "Historical price normalization",
+      "Stock signal comparison",
+      "Financial trend presentation",
+      "Investor-focused dashboard copy",
+    ],
   },
   {
     link: "https://github.com/anthonymoon2/TomoPudgy",
@@ -17,6 +56,13 @@ const codingProjects = [
     title: "TamaPudgy",
     description:
       "Collaborated project with team to create a tamagotchi inspired diet tracker",
+    languagesUsed: ["JavaScript", "React", "CSS"],
+    skillsLearned: [
+      "Shared component ownership",
+      "Gamified habit tracking",
+      "Team merge coordination",
+      "Diet log interaction design",
+    ],
   },
   {
     link: "https://github.com/joshcord99/Talker",
@@ -24,6 +70,13 @@ const codingProjects = [
     alt: "Talker AI Therapist",
     title: "Talker - AI Therapist",
     description: "Backend using MongoDB and Open-AI API integration",
+    languagesUsed: ["JavaScript", "Node.js", "MongoDB"],
+    skillsLearned: [
+      "Conversation prompt routing",
+      "MongoDB session persistence",
+      "Server-side API key handling",
+      "Therapy-style response boundaries",
+    ],
   },
   {
     link: "https://github.com/joshcord99/EZBadges",
@@ -32,6 +85,13 @@ const codingProjects = [
     title: "EZBadges",
     description:
       "C# CLI application that creates employee badges using SkiaSharp for image generation and API integration.",
+    languagesUsed: ["C#", ".NET", "SkiaSharp"],
+    skillsLearned: [
+      "SkiaSharp canvas composition",
+      "Badge template layout",
+      "C# API response mapping",
+      "Image export pipelines",
+    ],
   },
   {
     link: "https://github.com/joshcord99/Find-A-Programmer",
@@ -40,6 +100,13 @@ const codingProjects = [
     title: "Find-A-Programmer",
     description:
       "Front-end web application built with React and TypeScript that connects to GitHub API for candidate search and profile viewing.",
+    languagesUsed: ["TypeScript", "React", "CSS"],
+    skillsLearned: [
+      "GitHub candidate filtering",
+      "TypeScript payload interfaces",
+      "Profile result empty states",
+      "Search form accessibility",
+    ],
   },
   {
     link: "https://github.com/joshcord99/Personal-README-Generator",
@@ -48,6 +115,13 @@ const codingProjects = [
     title: "Personal-README-Generator",
     description:
       "A command-line app that generates a professional README.md file from user input.",
+    languagesUsed: ["JavaScript", "Node.js", "Markdown"],
+    skillsLearned: [
+      "Inquirer question flows",
+      "Markdown section templating",
+      "README license selection",
+      "Command-line validation prompts",
+    ],
   },
   {
     link: "https://github.com/joshcord99/Personal-Vehicle-Builder-Generator",
@@ -56,6 +130,13 @@ const codingProjects = [
     title: "Personal-Vehicle-Builder-Generator",
     description:
       "Lets users create custom virtual vehicles by selecting parts with price totals.",
+    languagesUsed: ["TypeScript", "Node.js"],
+    skillsLearned: [
+      "Vehicle class inheritance",
+      "Typed option menus",
+      "Constructor-based assembly",
+      "Part total calculation",
+    ],
   },
   {
     link: "https://github.com/joshcord99/Personal-Weather-Information",
@@ -64,6 +145,13 @@ const codingProjects = [
     title: "Personal-Weather-Information",
     description:
       "Displays current weather using OpenWeather API based on city input.",
+    languagesUsed: ["JavaScript", "HTML", "CSS"],
+    skillsLearned: [
+      "City query encoding",
+      "Weather condition rendering",
+      "Failed search messaging",
+      "OpenWeather response parsing",
+    ],
   },
 ];
 
@@ -75,6 +163,13 @@ const threeDProjects = [
     img: "/projects/trachh2o-serial-monitor.jpg",
     alt: "TrachH2O prototype weight readings and sensor setup",
     link: "https://github.com/joshcord99/TrachH2o",
+    languagesUsed: ["Arduino C/C++", "Fusion 360"],
+    skillsLearned: [
+      "HX711 signal smoothing",
+      "Load-cell tare calibration",
+      "Electronics clearance planning",
+      "Serial monitor debugging",
+    ],
     images: [
       {
         src: "/projects/trachh2o-serial-monitor.jpg",
@@ -97,6 +192,13 @@ const threeDProjects = [
     img: "/projects/motorcycle-speaker-front.jpg",
     alt: "Finished custom motorcycle speaker enclosure viewed from the front",
     link: "#",
+    languagesUsed: ["Fusion 360", "CAD modeling"],
+    skillsLearned: [
+      "Physical measurement translation",
+      "Speaker depth clearance checks",
+      "Mounting-hole tolerance planning",
+      "Customer-ready CAD iteration",
+    ],
     images: [
       {
         src: "/projects/motorcycle-speaker-front.jpg",
@@ -248,6 +350,30 @@ function ProjectListItem({ project, isSelected, onSelectProject }) {
   );
 }
 
+function ProjectMoreDetails({ project }) {
+  const detailGroups = [
+    { label: "Languages / Tools Used:", items: project.languagesUsed },
+    { label: "Skills Learned:", items: project.skillsLearned },
+  ].filter((group) => group.items?.length);
+
+  if (!detailGroups.length) return null;
+
+  return (
+    <div className="project-more-details">
+      {detailGroups.map((group) => (
+        <section className="project-more-detail-group" key={group.label}>
+          <h3>{group.label}</h3>
+          <ul>
+            {group.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 function ProjectDetail({ project }) {
   if (!project) {
     return (
@@ -269,20 +395,14 @@ function ProjectDetail({ project }) {
         }`}
       >
         {projectImages.map((image) => (
-          <a
-            className="project-image-link"
-            href={project.link}
-            target={project.link === "#" ? undefined : "_blank"}
-            rel={project.link === "#" ? undefined : "noopener noreferrer"}
-            aria-label={project.title}
-            key={image.src}
-          >
+          <div className="project-image-link" key={image.src}>
             <img src={image.src} className="image" alt={image.alt} />
-          </a>
+          </div>
         ))}
       </div>
       <p className="portfolioText">{project.title}</p>
       <p className="portfolioDescription">{project.description}</p>
+      <ProjectMoreDetails project={project} />
       {project.link === "#" ? (
         <span className="repository-button disabled">Repository Coming Soon</span>
       ) : (
@@ -328,32 +448,33 @@ function ProjectDetailModal({ project, onClose }) {
         <div
           className={`project-gallery project-gallery--${
             projectImages.length > 1 ? "multi" : "single"
-          }`}
-        >
-          {projectImages.map((image) => (
-            <a
-              className="project-image-link"
-              href={project.link}
-              target={project.link === "#" ? undefined : "_blank"}
-              rel={project.link === "#" ? undefined : "noopener noreferrer"}
-              aria-label={project.title}
-              key={image.src}
-            >
+        }`}
+      >
+        {projectImages.map((image) => (
+            <div className="project-image-link" key={image.src}>
               <img src={image.src} className="image" alt={image.alt} />
-            </a>
+            </div>
           ))}
         </div>
         {project.link === "#" ? (
-          <span className="repository-button disabled">Repository Coming Soon</span>
+          <>
+            <ProjectMoreDetails project={project} />
+            <span className="repository-button disabled">
+              Repository Coming Soon
+            </span>
+          </>
         ) : (
-          <a
-            className="repository-button"
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open Repository
-          </a>
+          <>
+            <ProjectMoreDetails project={project} />
+            <a
+              className="repository-button"
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open Repository
+            </a>
+          </>
         )}
       </section>
     </div>

@@ -264,8 +264,8 @@
 .tree-project-list {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  grid-auto-rows: minmax(116px, auto);
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-auto-rows: minmax(136px, auto);
   flex: 1;
   max-height: 360px;
   overflow-y: auto;
@@ -299,8 +299,10 @@
   display: grid;
   gap: 0;
   grid-template-columns: 1fr;
-  min-height: 116px;
-  padding: 14px;
+  min-height: 136px;
+  min-width: 0;
+  overflow: hidden;
+  padding: 18px;
   text-align: left;
   width: 100%;
 }
@@ -322,12 +324,17 @@
   flex-direction: column;
   gap: 7px;
   min-width: 0;
+  overflow: hidden;
 }
 
 .tree-project-item strong {
+  display: -webkit-box;
   font-size: 0.98rem;
   font-weight: 800;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   line-height: 1.25;
+  overflow: hidden;
   overflow-wrap: anywhere;
 }
 
@@ -414,6 +421,37 @@
   font-size: 0.95rem;
   line-height: 1.5;
   margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.project-more-details {
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 16px;
+  padding-top: 14px;
+}
+
+.project-more-detail-group h3 {
+  color: var(--text-color);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.project-more-detail-group ul {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.project-more-detail-group li {
+  margin: 4px 0;
   overflow-wrap: anywhere;
 }
 
@@ -507,6 +545,10 @@
 }
 
 .project-modal .project-gallery {
+  margin-bottom: 14px;
+}
+
+.project-modal .project-more-details {
   margin-bottom: 14px;
 }
 
@@ -646,17 +688,17 @@
 
   .tree-project-item strong,
   .tree-project-item span {
-    display: block;
     max-width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
   }
 
   .tree-project-item span {
-    -webkit-line-clamp: unset;
-    -webkit-box-orient: initial;
-    line-clamp: unset;
-    overflow: visible;
+    -webkit-line-clamp: 3;
+  }
+
+  .project-more-details {
+    grid-template-columns: 1fr;
   }
 
   .repository-button {
